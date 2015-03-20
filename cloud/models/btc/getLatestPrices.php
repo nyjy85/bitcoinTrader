@@ -36,7 +36,7 @@
 				//echo("INSERT INTO btcHistory (open, high, low, close, volume, volumeUSD, weightedPrice, avg, tDate) VALUES ($open, $high, $low, $close, $volume, $volumeC, $weightedPrice, $avg, '$theDate')");
 			echo("INSERT INTO bitfinex (last_price, ask, bid, volume) VALUES ($last_price, $ask, $bid, $volume')");
 		//return true  
-		return $rData;
+		return $tInfo;
 	}
 
 
