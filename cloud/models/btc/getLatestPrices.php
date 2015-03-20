@@ -6,7 +6,7 @@
 
 	ini_set('display_errors',1);  error_reporting(E_ALL); 
 
-	$resp = getPrices($days, $store);
+	$resp = getPrices();
 
 
 	echo(json_encode($resp));
