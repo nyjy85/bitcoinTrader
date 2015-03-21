@@ -18,7 +18,7 @@
                 $.getJSON('http://bitproj-nyjy.rhcloud.com/cloud/models/btc/charts.php?callback=?',function(res){
                         
 
-                        for(i in res['last_price']){  // finds last_price property and loops through it
+                        for(i in res['last_price']){  // finds last_price property and loops through it.
                             if(i ==0){
 
                                 pPeriods = res['last_price'][i]['timestamp'].split(/-| /g);
