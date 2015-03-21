@@ -1,126 +1,109 @@
+<!DOCTYPE HTML>
 <html>
-<script src = "js/jquery-1.11.2.min.js"></script>
-<script src="http://code.highcharts.com/highcharts.js"></script>
-<script src="http://code.highcharts.com/modules/data.js"></script>
-<script src="http://code.highcharts.com/modules/exporting.js"></script>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>Bitfinex BTC Trader</title>
 
-<!-- Additional files for the Highslide popup effect -->
-<script type="text/javascript" src="http://www.highcharts.com/media/com_demo/highslide-full.min.js"></script>
-<script type="text/javascript" src="http://www.highcharts.com/media/com_demo/highslide.config.js" charset="utf-8"></script>
-<link rel="stylesheet" type="text/css" href="http://www.highcharts.com/media/com_demo/highslide.css" />
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+
+        <script>
+
+
+        var prices=[];
+
+        function getInfo(){
+
+
+                $.getJSON('http://bitproj-nyjy.rhcloud.com/cloud/models/btc/charts.php?callback=?',function(res){
+                        
+
+                        for(i in res['last_price']){
+                           prices.push(parseFloat(res['last_price'][i]['last_price']));
+                       }
+
+                        setTimeout(function(){
+
+                            doCharts();
+                            //playTrade(7);
+
+                        }, 500)
+                    });
+
+        }
+       
+        </script>
+        <script type="text/javascript">
+
+        getInfo();
+        function doCharts(){
+        $('#container').highcharts({
+            chart: {
+                zoomType: 'x'
+            },
+            title: {
+                text: 'Bitcoin Prices, Trade Volume and News Sentiment'
+            },
+            subtitle: {
+                text: document.ontouchstart === undefined ?
+                    'Click and drag in the plot area to zoom in' :
+                    'Pinch the chart to zoom in'
+            },
+            xAxis: {
+                type: 'datetime',
+                minRange: 1 * 60 * 60 * 1000 // four hours
+            },
+            yAxis: {
+                title: {
+                    text: 'BTC Price'
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            plotOptions: {
+                area: {
+                    fillColor: {
+                        linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1},
+                        stops: [
+                            [0, Highcharts.getOptions().colors[0]],
+                            [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                        ]
+                    },
+                    marker: {
+                        radius: 2
+                    },
+                    lineWidth: 1,
+                    states: {
+                        hover: {
+                            lineWidth: 1
+                        }
+                    },
+                    threshold: null
+                }
+            },
+    
+            series: [{
+                        type: 'area',
+                        name: 'Bitcoin Avg Price Per Day',
+                        pointInterval: 1 * 60 * 1000,
+                        pointStart: Date.UTC(2015, 0, 1),
+                        data: prices
+                        }]
+        });
+    }
+    
+
+        </script>
+
+
+       
+    </head>
+    <body>
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="http://code.highcharts.com/modules/exporting.js"></script>
 
 <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 
-<script>
-$(function () {
-
-    // Get the CSV and create the chart
-    $.getJSON('http://btc-maybe588.rhcloud.com/cloud/models/btc/minutePrices.php?callback=?', function (csv) {
-
-        $('#container').highcharts({
-
-            data: {
-                csv: csv
-            },
-
-            title: {
-                text: 'Price trends from the last 4 hours'
-            },
-
-            subtitle: {
-                text: 'Source: Bitfinex API'
-            },
-
-            xAxis: {
-                //tickInterval: 7 * 24 * 3600 * 1000, // one week
-                tickInterval: 4 * 60 * 60,
-                tickWidth: 0,
-                gridLineWidth: 1,
-                labels: {
-                    align: 'left',
-                    x: 3,
-                    y: -3
-                }
-            },
-
-            yAxis: [{ // left y axis
-                title: {
-                    text: 'JOJOJOJO'
-                },
-                labels: {
-                    align: 'left',
-                    x: 3,
-                    y: 16,
-                    format: '{value:.,0f}'
-                },
-                showFirstLabel: false
-            }, { // right y axis
-                linkedTo: 0,
-                gridLineWidth: 0,
-                opposite: true,
-                title: {
-                    text: null
-                },
-                labels: {
-                    align: 'right',
-                    x: -3,
-                    y: 16,
-                    format: '{value:.,0f}'
-                },
-                showFirstLabel: false
-            }],
-
-            legend: {
-                align: 'left',
-                verticalAlign: 'top',
-                y: 20,
-                floating: true,
-                borderWidth: 0
-            },
-
-            tooltip: {
-                shared: true,
-                crosshairs: true,
-            },
-
-            plotOptions: {
-                series: {
-                    cursor: 'pointer',
-                    point: {
-                        events: {
-                            click: function (e) {
-                                hs.htmlExpand(null, {
-                                    pageOrigin: {
-                                        x: e.pageX || e.clientX,
-                                        y: e.pageY || e.clientY
-                                    },
-                                    headingText: this.series.name,
-                                    maincontentText: Highcharts.dateFormat('%A, %b %e, %Y', this.x) + ':<br/> ' +
-                                        this.y + ' visits',
-                                    width: 200
-                                });
-                            }
-                        }
-                    },
-                    marker: {
-                        lineWidth: 1
-                    }
-                }
-            },
-
-            series: [{
-                name: 'All visits',
-                lineWidth: 4,
-                marker: {
-                    radius: 4
-                }
-            }, {
-                name: 'New visitors'
-            }]
-        });
-    });
-
-});
-
-</script>
+    </body>
 </html>
