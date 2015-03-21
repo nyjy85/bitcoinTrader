@@ -18,7 +18,7 @@
                 $.getJSON('http://bitproj-nyjy.rhcloud.com/cloud/models/btc/charts.php?callback=?',function(res){
                         
 
-                        for(i in res['last_price']){
+                        for(i in res['last_price']){  // finds last_price property and loops through it
                             if(i ==0){
 
                                 pPeriods = res['last_price'][i]['timestamp'].split(/-| /g);
@@ -59,7 +59,7 @@
             },
             xAxis: {
                 type: 'datetime',
-                tickInterval: 4 * 60 * 60 * 1000 // four hours
+                tickInterval: 1 * 60 * 60 * 1000 //  every hour
             },
             yAxis: {
                 title: {
@@ -94,7 +94,7 @@
             series: [{
                         type: 'area',
                         name: 'Bitcoin Price per minute',
-                        pointInterval: 1 * 60 * 1000,
+                        pointInterval: 1 * 60 * 1000, // every minute
                         pointStart: Date.UTC(pPeriods[0], pPeriods[1], pPeriods[2]),
                         data: prices
                         }]
