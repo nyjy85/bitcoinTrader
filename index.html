@@ -25,6 +25,10 @@
                                 pPeriods[0] = parseInt(pPeriods[0]);
                                  pPeriods[1] = parseInt(pPeriods[1]-1);
                                   pPeriods[2] = parseInt(pPeriods[2]);
+                                  hms = pPeriods[3].split(":");
+                                  hms[0] = parseInt(hms[0]);
+                                  hms[1] = parseInt(hms[1]);
+                                  hms[2] = parseInt(hms[2]);
 
                             }
                            prices.push(parseFloat(res['last_price'][i]['last_price']));
@@ -60,7 +64,7 @@
             xAxis: {
                 type: 'datetime',
                 tickInterval: 1 * 60 * 60 * 1000 //  every hour
-            },
+
             yAxis: {
                 title: {
                     text: 'BTC Price'
@@ -95,7 +99,7 @@
                         type: 'area',
                         name: 'Bitcoin Price per minute',
                         pointInterval: 1 * 60 * 1000, // every minute
-                        pointStart: Date.UTC(pPeriods[0], pPeriods[1], pPeriods[2]),
+                        pointStart: Date.UTC(pPeriods[0], pPeriods[1], pPeriods[2], hms[0], hms[1], hms[2]),
                         data: prices
                         }]
         });
