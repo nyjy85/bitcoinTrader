@@ -50,7 +50,7 @@
                 zoomType: 'x'
             },
             title: {
-                text: 'Bitcoin Prices, Trade Volume and News Sentiment'
+                text: 'Bitcoin Prices in Intervals of One Minute'
             },
             subtitle: {
                 text: document.ontouchstart === undefined ?
@@ -93,7 +93,7 @@
     
             series: [{
                         type: 'area',
-                        name: 'Bitcoin Avg Price Per Day',
+                        name: 'Bitcoin Price per minute',
                         pointInterval: 1 * 60 * 1000,
                         pointStart: Date.UTC(pPeriods[0], pPeriods[1], pPeriods[2]),
                         data: prices
