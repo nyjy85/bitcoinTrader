@@ -18,14 +18,13 @@
                 $.getJSON('http://bitproj-nyjy.rhcloud.com/cloud/models/btc/charts.php?callback=?',function(res){
                         
 
-                        for(i in res['last_price']){  // finds last_price property and loops through it.
+                        for(i in res['last_price']){  // finds last_price property and loops through it
                             if(i ==0){
 
                                 pPeriods = res['last_price'][i]['timestamp'].split(/-| /g);
                                 pPeriods[0] = parseInt(pPeriods[0]);
                                  pPeriods[1] = parseInt(pPeriods[1]-1);
                                   pPeriods[2] = parseInt(pPeriods[2]);
-                            
 
                             }
                            prices.push(parseFloat(res['last_price'][i]['last_price']));
@@ -61,7 +60,7 @@
             xAxis: {
                 type: 'datetime',
                 tickInterval: 1 * 60 * 60 * 1000 //  every hour
-
+            },
             yAxis: {
                 title: {
                     text: 'BTC Price'
@@ -116,3 +115,4 @@
 
     </body>
 </html>
+
