@@ -19,6 +19,14 @@
                         
 
                         for(i in res['last_price']){
+                            if(i ==0){
+
+                                pPeriods = res['prices'][i]['timestamp'].split(/-| /g);
+                                pPeriods[0] = parseInt(pPeriods[0]);
+                                 pPeriods[1] = parseInt(pPeriods[1]-1);
+                                  pPeriods[2] = parseInt(pPeriods[2]);
+
+                            }
                            prices.push(parseFloat(res['last_price'][i]['last_price']));
                        }
 
@@ -87,7 +95,7 @@
                         type: 'area',
                         name: 'Bitcoin Avg Price Per Day',
                         pointInterval: 1 * 60 * 1000,
-                        pointStart: Date.UTC(2015, 0, 1),
+                        pointStart: Date.UTC(pPeriods[0], pPeriods[1], pPeriods[2]),
                         data: prices
                         }]
         });
