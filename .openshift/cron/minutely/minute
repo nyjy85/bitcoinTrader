@@ -1,2 +1,6 @@
 
 wget --quiet -O - 'http://bitproj-nyjy.rhcloud.com/cloud/models/btc/getLatestPrices.php';
+
+
+wget --quiet -O - 'http://bitproj-nyjy.rhcloud.com/cloud/models/btc/getBitstampPrices.php';
+
