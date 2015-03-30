@@ -21,11 +21,10 @@
                         for(i in res['last_price']){  // finds last_price property and loops through it
                             if(i ==0){
 
-                                // pPeriods = res['last_price'][i]['timestamp'].split(/-| /g);
-                                pPeriods = new Date(res['last_price'][i]['timestamp']).getTime();
-                                // pPeriods[0] = parseInt(pPeriods[0]);
-                                //  pPeriods[1] = parseInt(pPeriods[1]-1);
-                                //   pPeriods[2] = parseInt(pPeriods[2]);
+                                pPeriods = res['last_price'][i]['timestamp'].split(/-| /g);
+                                pPeriods[0] = parseInt(pPeriods[0]);
+                                 pPeriods[1] = parseInt(pPeriods[1]-1);
+                                  pPeriods[2] = parseInt(pPeriods[2]);
 
                             }
                            prices.push(parseFloat(res['last_price'][i]['last_price']));
@@ -96,8 +95,7 @@
                         type: 'area',
                         name: 'Bitcoin Price per minute',
                         pointInterval: 1 * 60 * 1000, // every minute
-                        // pointStart: Date.UTC(pPeriods[0], pPeriods[1], pPeriods[2]),
-                        //pointStart: pPeriods,
+                        pointStart: Date.UTC(pPeriods[0], pPeriods[1], pPeriods[2]),
                         data: prices
                         }]
         });
