@@ -29,7 +29,7 @@
 
 		//$news = dbMassData("SELECT * FROM news WHERE dateT !='0000-00-00 00:00:00' GROUP BY dateT ORDER BY dateT ASC");
 		//$prices = dbMassData("SELECT * FROM minuteCoin WHERE tDate != '0000-00-00 00:00:00' GROUP BY tDate ORDER BY timestamp DESC LIMIT 100");
-		$last_price = dbMassData("SELECT * FROM bitfinex WHERE last_price != 0 AND bid != 0 ORDER BY timestamp DESC LIMIT 240");
+		$last_price = dbMassData("SELECT * FROM bitfinex WHERE last_price != 0 AND bid != 0 ORDER BY timestamp ASC LIMIT 240");
 		//$resp = array("news"=>$news, "prices"=>$prices);
 		$resp = array("last_price"=>$last_price);
 
