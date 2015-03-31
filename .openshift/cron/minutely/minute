@@ -6,4 +6,5 @@ wget --quiet -O - 'http://bitproj-nyjy.rhcloud.com/cloud/models/btc/getBitstampP
 
 wget --quiet -O - 'http://bitproj-nyjy.rhcloud.com/cloud/models/btc/getCoinbasePrices.php';
 
+
 wget --quiet -O - 'http://bitproj-nyjy.rhcloud.com/cloud/models/btc/getBtcePrices.php';

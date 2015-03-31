@@ -24,7 +24,9 @@
 			$tInfo = json_decode($info, true);
 
 			$price = $tInfo['price'];
-	
+			// $ask = $tInfo['ask'];
+			// $bid = $tInfo['bid'];
+			// $volume = $tInfo['volume'];
 
 
 
