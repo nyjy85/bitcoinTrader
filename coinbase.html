@@ -1,0 +1,118 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>Coinbase BTC Trader</title>
+
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+
+        <script>
+
+
+        var prices=[];
+
+        function getInfo(){
+
+
+                $.getJSON('http://bitproj-nyjy.rhcloud.com/cloud/models/btc/getCoinbase.php',function(res){
+                        
+
+                        for(i in res['last_price']){  // finds last_price property and loops through it
+                            if(i ==0){
+
+                                pPeriods = res['last_price'][i]['timestamp'].split(/-| /g);
+                                pPeriods[0] = parseInt(pPeriods[0]);
+                                 pPeriods[1] = parseInt(pPeriods[1]-1);
+                                  pPeriods[2] = parseInt(pPeriods[2]);
+
+                            }
+                           prices.push(parseFloat(res['last_price'][i]['last_price']));
+                       }
+
+                        setTimeout(function(){
+
+                            doCharts();
+                            //playTrade(7);
+
+                        }, 500)
+                    });
+
+        }
+       
+        </script>
+        <script type="text/javascript">
+
+        getInfo();
+        function doCharts(){
+        $('#container').highcharts({
+            chart: {
+                zoomType: 'x'
+            },
+            title: {
+                text: 'Coinbase Bitcoin Prices Over the Last Four Hours'
+            },
+            subtitle: {
+                text: document.ontouchstart === undefined ?
+                    'Click and drag in the plot area to zoom in' :
+                    'Pinch the chart to zoom in'
+            },
+            xAxis: {
+                type: 'datetime',
+                tickInterval: 1 * 60 * 60 * 1000 //  every hour
+            },
+            yAxis: {
+                title: {
+                    text: 'BTC Price'
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            plotOptions: {
+                area: {
+                    fillColor: {
+                        linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1},
+                        stops: [
+                            [0, Highcharts.getOptions().colors[0]],
+                            [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                        ]
+                    },
+                    marker: {
+                        radius: 2
+                    },
+                    lineWidth: 1,
+                    states: {
+                        hover: {
+                            lineWidth: 1
+                        }
+                    },
+                    threshold: null
+                }
+            },
+    
+            series: [{
+                        type: 'area',
+                        name: 'Bitcoin Price per minute',
+                        pointInterval: 1 * 60 * 1000, // every minute
+                        pointStart: Date.UTC(pPeriods[0], pPeriods[1], pPeriods[2]),
+                        data: prices
+                        }]
+        });
+    }
+    
+
+        </script>
+
+
+       
+    </head>
+    <body>
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="http://code.highcharts.com/modules/exporting.js"></script>
+
+<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+    </body>
+</html>
+
