@@ -20,7 +20,7 @@
 	
 			//echo($theDate);
 			//echo("http://www.quandl.com/api/v1/datasets/BITCOIN/BITSTAMPUSD?auth_token=6sQU_EYPwHRMkJsReFG9");
-			$info = file_get_contents("https://api.exchange.coinbase.com/products/btc-usd/ticker");
+			$info = file_get_contents("http://api.exchange.coinbase.com/products/btc-usd/ticker");
 			$tInfo = json_decode($info, true);
 
 			$price = $tInfo['price'];
