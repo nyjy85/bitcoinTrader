@@ -18,16 +18,16 @@
                 $.getJSON('http://bitproj-nyjy.rhcloud.com/cloud/models/btc/getCoinbase.php',function(res){
                         
 
-                        for(i in res['last_price']){  // finds last_price property and loops through it
+                        for(i in res['price']){  // finds last price property and loops through it
                             if(i ==0){
 
-                                pPeriods = res['last_price'][i]['timestamp'].split(/-| /g);
+                                pPeriods = res['price'][i]['timestamp'].split(/-| /g);
                                 pPeriods[0] = parseInt(pPeriods[0]);
                                  pPeriods[1] = parseInt(pPeriods[1]-1);
                                   pPeriods[2] = parseInt(pPeriods[2]);
 
                             }
-                           prices.push(parseFloat(res['last_price'][i]['last_price']));
+                           prices.push(parseFloat(res['price'][i]['price']));
                        }
 
                         setTimeout(function(){
