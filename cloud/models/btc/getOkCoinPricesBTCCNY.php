@@ -1,5 +1,5 @@
 <?php
-$dbcon = mysql_connect('localhost', 'adminqrYyzgY', 'W5W7-sXQnbCx' or die (mysql_error());
+$dbcon = mysql_connect('localhost', 'adminqrYyzgY', '????????' or die (mysql_error());
 $dbsel = mysql_select_db('bitproj', $dbcon) or die (mysql_error());
 
                 $resp = file_get_contents('https://www.okcoin.cn/api/v1/ticker.do?symbol=btc_cny');
