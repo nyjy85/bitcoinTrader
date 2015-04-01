@@ -14,6 +14,5 @@ $dbsel = mysql_select_db('bitproj', $dbcon) or die (mysql_error());
                 $sql = "INSERT into okCoinTickerBTCCNY (buy, high, last, low, sell, vol, pair) VALUES ($buy, $high, $last, $low, $sell, $vol, 'BTCCNY')";
                 $result = mysql_query($sql) or die (mysql_error());
 
-        return $data;
         mysql_close($dbcon);
 ?>
