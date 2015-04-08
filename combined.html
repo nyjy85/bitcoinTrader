@@ -61,7 +61,7 @@ function getData(){
        
 	})
 }
-function  getChart(prices, bidPrices1, askPrices1, prices2, bidPrices2, askPrices2, price3, bidPrices3, askPrices3 ) {
+function  getChart(prices, bidPrices1, askPrices1, prices2, bidPrices2, askPrices2, prices3, bidPrices3, askPrices3 ) {
     $('#container').highcharts({
         chart: {
             type: 'spline',
@@ -136,7 +136,7 @@ function  getChart(prices, bidPrices1, askPrices1, prices2, bidPrices2, askPrice
         {
             name: 'BTC-e',
             data: prices3
-        },
+        }
         ],
         navigation: {
             menuItemStyle: {
