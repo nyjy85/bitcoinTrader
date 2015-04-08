@@ -18,40 +18,60 @@ function init(){
 }
 function getData(){
 	$.getJSON('/cloud/models/btc/bitCombined.php', function(resp){
-		allPrices = [];
+
+
+		// bitfinex
+        allPrices = [];
 		allBids = [];
 		allAsks=[];
+
+        //bitstamp
         allPrices1 = [];
         allBids1 = [];
         allAsks1=[];
-        resp[0].reverse();
-        resp[1].reverse();
+
+        //btce
+        allPrices2 = [];
+        allBids2 = [];
+        allAsks2 = [];
+
+        // resp[0].reverse(); not necessary because I reversed the data in the php file
+        // resp[1].reverse();
+        // res[2].reverse();
 		//resp.reverse();
 		//startTime = new Date(resp[0]['timestamp']).getTime();
 		for (i in resp[0]){
-			allPrices.push([new Date(resp[0][i]['timestamp']).getTime(), parseFloat(resp[0][i]['last_price'])]);
+			allPrices.push([new Date(resp[0][i]['timestamp']).getTime(), parseFloat(resp[0][i]['last_price'])]); // time is x coo, price is y coo => [time, price]
 			allBids.push([new Date(resp[0][i]['timestamp']).getTime(), parseFloat(resp[0][i]['bid'])]);
 			allAsks.push([new Date(resp[0][i]['timestamp']).getTime(), parseFloat(resp[0][i]['ask'])]);
 		}
-            for (i in resp[1]){
+        for (i in resp[1]){
             allPrices1.push([new Date(resp[1][i]['timestamp']).getTime(), parseFloat(resp[1][i]['price'])]);
             allBids1.push([new Date(resp[1][i]['timestamp']).getTime(), parseFloat(resp[1][i]['bid'])]);
             allAsks1.push([new Date(resp[1][i]['timestamp']).getTime(), parseFloat(resp[1][i]['ask'])]);
         }
-		getChart(allPrices, allBids, allAsks, allPrices1, allBids1, allAsks1);
+        for (i in resp[2]){
+            allPrices2.push([new Date(resp[2][i]['timestamp']).getTime(), parseFloat(resp[2][i]['price'])]);
+            allBids2.push([new Date(resp[2][i]['timestamp']).getTime(), parseFloat(resp[2][i]['bid'])]);
+            allAsks2.push([new Date(resp[2][i]['timestamp']).getTime(), parseFloat(resp[2][i]['ask'])]);
+        
+        }
+		getChart(allPrices, allBids, allAsks, allPrices1, allBids1, allAsks1, allPrices2, allBids2, allAsks2);
+
+       
 	})
 }
-function  getChart(prices, bidPrices1, askPrices1, prices2, bidPrices2, askPrices2 ) {
+function  getChart(prices, bidPrices1, askPrices1, prices2, bidPrices2, askPrices2, price3, bidPrices3, askPrices3 ) {
     $('#container').highcharts({
         chart: {
             type: 'spline',
             zoomType:'x'
         },
         title: {
-            text: 'Bitfinex vs. Bit Stamp'
+            text: 'Bitfinex vs. BitStamp vs BTC-e'
         },
         subtitle: {
-            text: 'Combines prices over the last 4 hours'
+            text: 'Shows prices over the last 4 hours'
         },
         xAxis: {
             type: 'datetime',
@@ -90,7 +110,7 @@ function  getChart(prices, bidPrices1, askPrices1, prices2, bidPrices2, askPrice
         },
         series: [{
             name: 'Bitfinex',
-            data: prices
+            data: prices // [timestamp, prices] x, y
         },
        /* {
             name: 'BF Ask',
@@ -113,6 +133,10 @@ function  getChart(prices, bidPrices1, askPrices1, prices2, bidPrices2, askPrice
             data: bidPrices2
         }*/
         //add another here {name: 'ddd', data:lah}
+        {
+            name: 'BTC-e',
+            data: prices3
+        },
         ],
         navigation: {
             menuItemStyle: {
