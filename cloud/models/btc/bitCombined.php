@@ -11,7 +11,7 @@
 	
 		
 		
-		$resp = dbMassData("SELECT * FROM (SELECT * FROM bitfinex ORDER BY timestamp DESC) t ORDER BY timestamp ASC");
+		$resp = dbMassData("SELECT * FROM (SELECT * FROM bitfinex ORDER BY timestamp DESC LIMIT 240) t ORDER BY timestamp ASC");
 		$resp1 = dbMassData("SELECT * FROM (SELECT * FROM bitStamp ORDER BY timestamp DESC LIMIT 240) t ORDER BY timestamp ASC");
 		$allResp = array(); // sets up an empty array
 		$allResp[0] =  $resp; // assigns the bifinex db to the 0th index
